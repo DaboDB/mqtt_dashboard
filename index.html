@@ -220,11 +220,11 @@
             <div class="config-row">
                 <div class="config-group">
                     <label>Broker URL:</label>
-                    <input type="text" id="brokerUrl" value="ws://localhost:9001" placeholder="ws://broker.example.com:9001">
+                    <input type="text" id="brokerUrl" value="wss://2cebe4a42176492ab1302eb5a1137086.s1.eu.hivemq.cloud:8884/mqtt" placeholder="ws://broker.example.com:9001">
                 </div>
                 <div class="config-group">
                     <label>Username (optional):</label>
-                    <input type="text" id="username" placeholder="username">
+                    <input type="text" id="dashboard" placeholder="username">
                 </div>
                 <div class="config-group">
                     <label>Password (optional):</label>
@@ -234,7 +234,7 @@
             <div class="config-row">
                 <div class="config-group">
                     <label>Topics (comma-separated):</label>
-                    <input type="text" id="topics" value="home/temperature,home/humidity,home/pressure" placeholder="topic1,topic2,topic3">
+                    <input type="text" id="topics" value="co2/co2" placeholder="topic1,topic2,topic3">
                 </div>
             </div>
             <button onclick="connectMQTT()">Connect & Subscribe</button>
