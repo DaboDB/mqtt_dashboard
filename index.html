@@ -327,13 +327,21 @@
             const password = document.getElementById('password').value;
             const topicsInput = document.getElementById('topics').value;
 
+            if (!username || !password) {
+                alert('Username and password are required for HiveMQ Cloud');
+                return;
+            }
+
             // Parse broker URL
             const url = new URL(brokerUrl);
             const host = url.hostname;
-            const port = parseInt(url.port) || 9001;
+            const port = parseInt(url.port) || 8884;
             const path = url.pathname || '/mqtt';
+            const useSSL = url.protocol === 'wss:';
 
-            // Create client
+            console.log('Connecting to:', { host, port, path, useSSL });
+
+            // Create client - Paho MQTT needs the host WITHOUT the protocol
             const clientId = 'mqtt_dashboard_' + Math.random().toString(16).substr(2, 8);
             client = new Paho.MQTT.Client(host, port, path, clientId);
 
@@ -357,9 +365,16 @@
 
             // Connection options
             const options = {
+                useSSL: useSSL,  // This is critical for wss://
+                timeout: 10,
+                keepAliveInterval: 30,
+                cleanSession: true,
+                userName: username,
+                password: password,
                 onSuccess: () => {
                     document.getElementById('statusDot').className = 'status-dot connected';
                     document.getElementById('statusText').textContent = 'Connected to ' + host;
+                    console.log('Connected successfully!');
                     
                     // Subscribe to topics
                     const topics = topicsInput.split(',').map(t => t.trim()).filter(t => t);
@@ -371,20 +386,17 @@
                 onFailure: (error) => {
                     document.getElementById('statusDot').className = 'status-dot disconnected';
                     document.getElementById('statusText').textContent = 'Connection failed: ' + error.errorMessage;
-                    alert('Connection failed: ' + error.errorMessage);
+                    console.error('Connection error details:', error);
+                    alert('Connection failed: ' + error.errorMessage + '\n\nCheck browser console (F12) for more details.');
                 }
             };
 
-            // Add credentials if provided
-            if (username) {
-                options.userName = username;
-                options.password = password;
-            }
-
             // Connect
             try {
+                console.log('Attempting connection with options:', { ...options, password: '***' });
                 client.connect(options);
             } catch (error) {
+                console.error('Exception during connect:', error);
                 alert('Error: ' + error.message);
             }
         }
