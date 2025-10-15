@@ -382,6 +382,7 @@
                         client.subscribe(topic);
                         console.log('Subscribed to:', topic);
                     });
+                    document.getElementById('configPanel').style.display = 'none';
                 },
                 onFailure: (error) => {
                     document.getElementById('statusDot').className = 'status-dot disconnected';
