@@ -216,7 +216,7 @@
             <span id="statusText">Disconnected</span>
         </div>
 
-        <div class="config-panel">
+        <div class="config-panel" id="configPanel">
             <div class="config-row">
                 <div class="config-group">
                     <label>Broker URL:</label>
@@ -382,7 +382,7 @@
                         client.subscribe(topic);
                         console.log('Subscribed to:', topic);
                     });
-                    document.getElementById('config-panel').style.display = 'none';
+                    document.getElementById('configPanel').style.display = 'none';
                 },
                 onFailure: (error) => {
                     document.getElementById('statusDot').className = 'status-dot disconnected';
