@@ -400,9 +400,12 @@
                 alert('Error: ' + error.message);
             }
         }
-        // Auto-connect on page load
+
+        // Auto-connect and hide config panel on page load
         window.addEventListener('load', () => {
+        setTimeout(() => {
         connect();
+            }, 500);
         });
     </script>
 </body>
