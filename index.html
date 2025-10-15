@@ -224,11 +224,11 @@
                 </div>
                 <div class="config-group">
                     <label>Username (optional):</label>
-                    <input type="text" id="username" placeholder="dashboard">
+                    <input type="text" id="username" placeholder="username" value="dashboard">
                 </div>
                 <div class="config-group">
                     <label>Password (optional):</label>
-                    <input type="password" id="password" placeholder="password">
+                    <input type="password" id="password" placeholder="password" value="Fucker!$1_shit_bitch_condom!">
                 </div>
             </div>
             <div class="config-row">
@@ -400,6 +400,10 @@
                 alert('Error: ' + error.message);
             }
         }
+        // Auto-connect on page load
+        window.addEventListener('load', () => {
+        connect();
+        });
     </script>
 </body>
 </html>
